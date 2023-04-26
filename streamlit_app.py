@@ -31,7 +31,7 @@ try :
     #streamlit.write('The user entered ', fruit_choice)
     back_from_function=get_fruitvice_data(fruit_choice)
     streamlit.dataframe(back_from_function)
-except URLERROR as e:
+except URLError as e:
   streamlit.error()
 # write your own comment - what does this do?
 #streamlit.dataframe(fruityvice_normalized)
@@ -50,8 +50,7 @@ if streamlit.button('Get a fruit list'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
     my_data_rows = my_cur.get_fruit_load_list()
     my_cnx.close()
-    streamlit.dataframe(my_data_rows)
-    
+    streamlit.dataframe(my_data_rows)    
 def insert_row_snowflake(new_fruit):
     with my_cnx.cursor() as my_cur:
         my_cur.execute("insert into pc_rivery_db.public.fruit_load_list values ('" + insert_row_snowflake +"')")
